@@ -27,7 +27,8 @@ server <- function(input, output) {
         }
         
         ggplot(data2) +
-            geom_bar(aes(x = Year, y = nrow(data2)), stat = 'identity') 
+            geom_bar(aes(x = Year, y = nrow(data2)), stat = 'identity', col = "blue") +
+            labs(x = "Production Year",  y = "Amount of Movies Available", title = "Amount of Movies per Production Year (for different platforms)")
     })
     
     netflix.data <- reactive(
@@ -80,13 +81,19 @@ server <- function(input, output) {
         
     })
     
-    netflixData <- reactive({ 
-        platformData <- movieData %>%
+    totalData <- reactive({ 
+        platformData <- data %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
             filter(Age == input$ageGroup) %>%
-            summarise(Netflix = sum(Netflix))
+            summarise("Netflix" = sum(Netflix), "Hulu" = sum(Hulu),"Prime Video" = sum(Prime.Video), "Disney+" = sum(Disney.))
         
     })
+    output$ratingSummary <- renderText({
+        paste0("There are ", nrow(netflix.data()), " movies on Netflix with IMDb ratings higher than", input$Rating, ",",
+                                  nrow(hulu.data()), " movies on Hulu with IMDb ratings higher than", input$Rating, ",",
+                                  nrow(prime.data()), " movies on Prime Video with IMDb ratings higher than", input$Rating, ",",
+                                  nrow(disney.data()), " movies on Disney+ with IMDb ratings higher than", input$Rating, ".")
+        })
     output$plot <- renderPlot({
         
         platformData <- movieData %>%
@@ -105,8 +112,12 @@ server <- function(input, output) {
         
     })
     output$summary <- renderText(
-        paste0("In this bar chart, the platform updates on par with the age selection ",
-               input$ageGroup," rated movies.  Netflix provides ", netflixData()," in that age range.")
+        paste0("In this bar chart with, the platform updates on par with the age selection of ",
+               input$ageGroup," rated movies totalling ", sum(totalData()), " films. This lets the users found out which platforms has
+     the most suitable age-rated movies. The following platforms are showing the amount of movies 
+     presented within the age group, Disney+ has ", totalData()$"Disney+", " movies, Hulu has ", totalData()$"Hulu", " movies, Netflix has 
+     ", totalData()$"Netflix", " and Prime Video has ",totalData()$"Prime Video"," movies.")
+        
     )
     
 }
