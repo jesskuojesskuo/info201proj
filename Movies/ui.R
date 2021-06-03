@@ -18,13 +18,14 @@ ui <- fluidPage(
                          h3("Dataset"),
                          p("The dataset we utilized from Kaggle (data science community with reputable open datasets) contains movie data regarding Hulu, Disney+, Netflix, and Prime video. It is a combination of IMDb dataset, and scraped data from various streaming platforms. The csv file consists of movies from the early 1900s to 2020. The dataset can be found publicly", tags$a(href="https://www.kaggle.com/ruchi798/movies-on-netflix-prime-video-hulu-and-disney", "here!")),
                          br(),
-                         h3("Creators"),
+                         h3("Questions"),
                          tags$ol(
-                             tags$li("Andy Hoang"), 
-                             tags$li("Jessica Kuo"), 
-                             tags$li("Justin Lee"),
-                             tags$li("Sara Hamidi")
+                             tags$li("What year of movies are more prevalent on specific platforms?"), 
+                             tags$li("What movie platforms feature the most movies for a certain IMBb ratings?"),
+                             tags$li("What movie platforms target the most of a certain age group? "),
+                             tags$li("How many movies are featured on each platform?")
                          ),
+                         br(),
                          img(src = "https://cdn.shopify.com/s/files/1/1003/7610/files/Movie_Banner-01.jpg?v=1475077727"),
                      )
         ),
@@ -88,6 +89,8 @@ ui <- fluidPage(
                             tags$li("Justin Lee"),
                             tags$li("Sara Hamidi")
                         ),
+                        br(),
+                        img(src = "https://cdn.shopify.com/s/files/1/1003/7610/files/Movie_Banner-01.jpg?v=1475077727"),
                     )
                 )
         )

@@ -74,7 +74,7 @@ server <- function(input, output) {
     
     output$disney <- renderPlot({
         ggplot(disney.data()) +
-            geom_bar(mapping = aes(x = Age, y = nrow, fill = Age), position = "dodge", show.legend = FALSE)+
+            geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
             labs(title = paste("The Amount of Movies with an IMDb rating higher than", input$Rating, "On Disney+"))
         
         
