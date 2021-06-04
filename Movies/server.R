@@ -11,19 +11,19 @@ server <- function(input, output) {
     output$Plot <- renderPlot({
         
         if(input$platform == "All four platforms"){
-            data2 <- data
+            data2 <- movieData
         }
         else if(input$platform == "Netflix") {
-            data2 <- filter(data, Netflix == "1")
+            data2 <- filter(movieData, Netflix == "1")
         }
         else if(input$platform == "Hulu") {
-            data2 <- filter(data, Hulu == "1")
+            data2 <- filter(movieData, Hulu == "1")
         }
         else if(input$platform == "Prime.Video") {
-            data2 <- filter(data, Prime.Video == "1")
+            data2 <- filter(movieData, Prime.Video == "1")
         }
         else if(input$platform == "Disney.") {
-            data2 <- filter(data, Disney. == "1")
+            data2 <- filter(movieData, Disney. == "1")
         }
         
         ggplot(data2) +
@@ -82,7 +82,7 @@ server <- function(input, output) {
     })
     
     totalData <- reactive({ 
-        platformData <- data %>%
+        platformData <- movieData %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
             filter(Age == input$ageGroup) %>%
             summarise("Netflix" = sum(Netflix), "Hulu" = sum(Hulu),"Prime Video" = sum(Prime.Video), "Disney+" = sum(Disney.))
