@@ -78,6 +78,7 @@ ui <- fluidPage(
         #age filter
         tabPanel("Age Filter", 
                  sidebarLayout(
+                     #selection of age group, plots bar chart of the 4 platforms depending on the age input
                      sidebarPanel(
                          selectInput("ageGroup", label = "Age Group:", 
                                      choices = c("7+", "13+", "16+", "18+", "all")

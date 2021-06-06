@@ -99,7 +99,7 @@ server <- function(input, output) {
         
         
     })
-    #Reactive data for Age Filter
+    #Reactive data for Age Filter Plot and rendertext summary,
     totalData <- reactive({ 
         platformData <- movieData %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
@@ -116,12 +116,11 @@ server <- function(input, output) {
     output$plot <- renderPlot({
         
         #Server for Age Filter
-        platformData <- movieData %>%
-            select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
-            filter(Age == input$ageGroup) %>%
-            summarise("Netflix" = sum(Netflix), "Hulu" = sum(Hulu),"Prime Video" = sum(Prime.Video), "Disney+" = sum(Disney.))     
-        
-        platformMovieAmount <- platformData %>%
+        #uses totalData to make the components of the bar chart
+        #x-axis is the 4 platforms and y axis are the amount of movies they have
+        #hide the legend
+        #title can alternate depending on the input of age group
+        platformMovieAmount <- totalData() %>%
             pivot_longer("Netflix":"Disney+", names_to = "platform", values_to = "totalMovies")
         
         ggplot(data=platformMovieAmount, aes(x= platform, y= totalMovies, fill=platform)) +
@@ -133,12 +132,13 @@ server <- function(input, output) {
     })
     
     #Summary for Age Plot Introduction & Conclusion
+    #Uses reactive and selectInput to display results of age choice
     output$summary <- renderText(
         paste0("In this bar chart, the platform updates on par with the age selection of ",
                input$ageGroup," rated movies totalling ", sum(totalData()), " films. This lets the users find out which platforms has
      the most suitable age-rated movies, helping those who are concern about the movies with apropriate ages. The widget allows them to select age ranging 7+, 13+, 16+, 18+ and all.
      The following platforms are showing the amount of movies 
-     presented within the ", input$ageGroup," age group, Disney+ has ", totalData()$"Disney+", " movies, Hulu has ", totalData()$"Hulu", " movies, Netflix has 
+     presented within the ", input$ageGroup," age group: Disney+ has ", totalData()$"Disney+", " movies, Hulu has ", totalData()$"Hulu", " movies, Netflix has 
      ", totalData()$"Netflix", " and Prime Video has ",totalData()$"Prime Video"," movies.")
         
     )
