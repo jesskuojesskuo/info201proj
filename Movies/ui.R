@@ -90,15 +90,15 @@ ui <- fluidPage(
                          tags$ul(
                              tags$li("Referring to the years chart, we can see movie production levels grew sizable amounts in 2000 - 2010 and beyond for all platforms. Disney+ also had many older movies compared to Hulu and Netflix which really only began streaming more movies mainly after 2010."), 
                              tags$li("
-From the ratings chart, all movie platforms did not have higher than an imdb rating of 9. When it comes to ratings over 8, Netflix has the most, mainly for 18+ age group. Prime Video has the most movies, around 1500, all with ratings over 1. There are roughly over 800 movies with imdb ratings over 5, proving to be quite versatile compared to the other movie platforms. 
+From the ratings chart, all movie platforms did not have higher than an imdb rating of 9. When it comes to ratings over 8, Netflix has the most, mainly for 18+ age group. Prime Video has the most movies, around 1500, all with ratings over 1. There are roughly over 800 movies with imdb ratings over 5, proving to be quite versatile compared to the other movie platforms. Netflix is the second best platform in regards to ratings and the amount of movies offered for every age group even though Prime Video has the most movies overall despite the popularity trends of Netflix, Hulu and Disney +.
 "), 
                              tags$li("In reference to the age charts, it appears that Prime Video had the most movies out of all the other platforms provided to all of the age groups. It was surprising that Prime Video, one of the cheaper subscriptions, had more movies than almost all netflix, hulu, and Disney + combined. 
 Disney+ has only one film within 16+ age group movies. They come in second behind Prime Video for all age groups despite having less movies overall.
 ")
                          ),
                          h3("Reflection"),
-                         p("Our dataset was gathered by Ruchi Bhatia, a profound and reputable data scientist within the Kaggle community. Although her dataset consisted of data scraping in the US region and combining the imdb dataset, there were a few questions and concerns of accuracy and collection methods by other scientists who referenced and used the data. It is unclear if all of the data is correct, complete, and/or  biased."),
-                        p("In the future, to further this project it would be ideal to get in touch with Ruchi to discuss the dataset and collection method. It would also be keen to screen the accuracy and finally include new/missing data and more chart visualizations that would influence consumer interest."),
+                         p("Our dataset was gathered by Ruchi Bhatia, a profound and reputable data scientist among the Kaggle community. Although her dataset consisted of data scraping mainly in the US region and combining the imdb dataset, there were a few questions of accuracy and geography of the data collected by other scientists who referenced and used the data. It is unclear if all of the data is correct, complete, and/or  biased."),
+                        p("In the future, to further this project it would be ideal to get in touch with Ruchi to discuss the dataset and collection method. It would also be keen to fact check the accuracy from the streaming platforms, and finally include new/missing data, na values, for some categories like age groups, and more chart visualizations to minimize misleading consumers."),
                         h3("Creators"),
                         tags$ul(
                             tags$li("Andy Hoang"), 
