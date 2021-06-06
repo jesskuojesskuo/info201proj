@@ -48,26 +48,34 @@ ui <- fluidPage(
                     )
                 )
         ),
+        
+        #rating filter
         tabPanel("Ratings Filter", 
                  sidebarLayout(
                      sidebarPanel(
+                         #user inputs desired minimum IMDb rating, bar charts show count for movies with at least that rating
                         sliderInput("Rating",
                                      "IMDb ratings for movies", 
                                      min = 0, 
                                      max = 10,
                                      value = 5),
+                                    #default rating starts at 5
                         h3("Plot Introduction & Summary"),
                         p("Through these 4 graphs, we are able to visualize the relationship between IMDb ratings of movies for each age group that are available on each streaming platform. This tab is useful for users who are interested in seeing whether a certain platform has more movies with higher ratings for their desired age group. The widget allows them to select a rating, modifying the bar charts to only show the movies with IMDb ratings higher than the one selected on the slider. Here, we can see that Netflix, Hulu, and Prime Video have a lot of movies with ratings higher than 7 for older age groups and Disney+ has a lot of movies with higher ratings for all ages.")
                      ),
                      mainPanel(
+                         #bar chart for netflix
                          plotOutput("netflix"),
+                         #hulu
                          plotOutput("hulu"),
+                         #prime
                          plotOutput("prime"),
-                         plotOutput("disney"),
-                         textOutput("RatingSummary")
+                         #disney+
+                         plotOutput("disney")
                      )
                  )
         ),
+        #age filter
         tabPanel("Age Filter", 
                  sidebarLayout(
                      sidebarPanel(

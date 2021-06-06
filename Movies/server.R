@@ -30,27 +30,44 @@ server <- function(input, output) {
             geom_bar(aes(x = Year, y = nrow(data2)), stat = 'identity', col = "blue") +
             labs(x = "Production Year",  y = "Amount of Movies Available", title = "Amount of Movies per Production Year (for different platforms)")
     })
+    #reactive data for the "rating filter" tab
     
+    #data for the bar chart for netflix
+    #for all bar charts, only movies for the United States are shown
+    #IMdb is above the user input
+    #exclude observations where the "Age"  variable is empty or N/A
+    
+    #Netflix
     netflix.data <- reactive(
         filter(movieData, Country == "United States", IMDb > input$Rating, Netflix  == 1, Age != "")%>%
             drop_na(Age)
     )
     
+    #Hulu
     hulu.data <- reactive(
         filter(movieData, Country == "United States", IMDb > input$Rating, Hulu  == 1, Age != "")%>%
             drop_na(Age)
     )
     
+    #Prime Video
     prime.data <- reactive(
         filter(movieData, Country == "United States", IMDb > input$Rating, Prime.Video  == 1, Age != "")%>%
             drop_na(Age)
     )
     
+    #Disney+
     disney.data <- reactive(
         filter(movieData, Country == "United States", IMDb > input$Rating, Disney. == 1, Age != "")%>%
             drop_na(Age)
     )
     
+    #Create 4 bar charts, 1 for each platform
+    #x-axis is the age groups
+    #bars are vertical
+    #hide the legend
+    #title of the bar charts update based on the users' inputted rating
+    
+    #Netflix
     output$netflix <- renderPlot({
         ggplot(netflix.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
@@ -58,6 +75,7 @@ server <- function(input, output) {
         
         
     })
+    #Hulu
     output$hulu <- renderPlot({
         ggplot(hulu.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
@@ -65,6 +83,7 @@ server <- function(input, output) {
         
         
     })
+    #Prime Video
     output$prime <- renderPlot({
         ggplot(prime.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
@@ -72,7 +91,7 @@ server <- function(input, output) {
         
         
     })
-    
+    #Disney+
     output$disney <- renderPlot({
         ggplot(disney.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
