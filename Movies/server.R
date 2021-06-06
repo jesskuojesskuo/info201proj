@@ -80,7 +80,7 @@ server <- function(input, output) {
         
         
     })
-    
+    #Reactive data for Age Filter
     totalData <- reactive({ 
         platformData <- movieData %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
@@ -96,6 +96,7 @@ server <- function(input, output) {
         })
     output$plot <- renderPlot({
         
+        #Server for Age Filter
         platformData <- movieData %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
             filter(Age == input$ageGroup) %>%
@@ -111,11 +112,14 @@ server <- function(input, output) {
         
         
     })
+    
+    #Summary for Age Plot Introduction & Conclusion
     output$summary <- renderText(
-        paste0("In this bar chart with, the platform updates on par with the age selection of ",
-               input$ageGroup," rated movies totalling ", sum(totalData()), " films. This lets the users found out which platforms has
-     the most suitable age-rated movies. The following platforms are showing the amount of movies 
-     presented within the age group, Disney+ has ", totalData()$"Disney+", " movies, Hulu has ", totalData()$"Hulu", " movies, Netflix has 
+        paste0("In this bar chart, the platform updates on par with the age selection of ",
+               input$ageGroup," rated movies totalling ", sum(totalData()), " films. This lets the users find out which platforms has
+     the most suitable age-rated movies, helping those who are concern about the movies with apropriate ages. The widget allows them to select age ranging 7+, 13+, 16+, 18+ and all.
+     The following platforms are showing the amount of movies 
+     presented within the ", input$ageGroup," age group, Disney+ has ", totalData()$"Disney+", " movies, Hulu has ", totalData()$"Hulu", " movies, Netflix has 
      ", totalData()$"Netflix", " and Prime Video has ",totalData()$"Prime Video"," movies.")
         
     )
