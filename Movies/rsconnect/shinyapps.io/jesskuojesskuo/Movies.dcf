@@ -1,0 +1,13 @@
+name: Movies
+title: Movies
+username:
+account: jesskuojesskuo
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4237009
+bundleId: 4685930
+url: https://jesskuojesskuo.shinyapps.io/Movies/
+when: 1623044652.26337
+lastSyncTime: 1623044652.26339
+asMultiple: FALSE
+asStatic: FALSE
