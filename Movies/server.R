@@ -4,9 +4,15 @@ library(ggplot2)
 library(maps)
 library(rsconnect)
 
-movieData <- read.csv("Movies.csv")
+#Read file
+movieData <- read.csv("movies.csv")
 
 server <- function(input, output) {
+    
+    #reactive data/server for the "year filter" tab 
+    #depending on the radio buttons selection from the widget, the data will alter
+    #if-else statements read the selection and determine which data to filter from the csv
+    #we will filter so there is only the rows where the selection is = to 1
     
     output$Plot <- renderPlot({
         
@@ -26,12 +32,18 @@ server <- function(input, output) {
             data2 <- filter(movieData, Disney. == "1")
         }
         
+        #a bar chart with year on x axis and the count(of row) on the y axis is shown
+        #the color of the bar chart is blue and information is from data2, which is the filter platform
+        #from this graph we can determine how many movies there are from each year for platforms
+        
         ggplot(data2) +
             geom_bar(aes(x = Year, y = nrow(data2)), stat = 'identity', col = "blue") +
             labs(x = "Production Year",  y = "Amount of Movies Available", title = "Amount of Movies per Production Year (for different platforms)")
     })
-    #reactive data for the "rating filter" tab
     
+    #----------------------------------------------------------------------------
+    
+    #reactive data for the "rating filter" tab
     #data for the bar chart for netflix
     #for all bar charts, only movies for the United States are shown
     #IMdb is above the user input
@@ -72,63 +84,60 @@ server <- function(input, output) {
         ggplot(netflix.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
             labs(title = paste("The Amount of Movies with an IMDb rating higher than", input$Rating, "On Netflix"))
-        
-        
     })
+    
     #Hulu
     output$hulu <- renderPlot({
         ggplot(hulu.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
             labs(title = paste("The Amount of Movies with an IMDb rating higher than", input$Rating, "On Hulu"))
-        
-        
     })
+    
     #Prime Video
     output$prime <- renderPlot({
         ggplot(prime.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
             labs(title = paste("The Amount of Movies with an IMDb rating higher than", input$Rating, "On Prime Video"))
-        
-        
     })
+    
     #Disney+
     output$disney <- renderPlot({
         ggplot(disney.data()) +
             geom_bar(mapping = aes(x = Age, fill = Age), position = "dodge", show.legend = FALSE)+
             labs(title = paste("The Amount of Movies with an IMDb rating higher than", input$Rating, "On Disney+"))
-        
-        
     })
+    
     #Reactive data for Age Filter Plot and rendertext summary,
     totalData <- reactive({ 
         platformData <- movieData %>%
             select(Age, Netflix, Hulu, Prime.Video, Disney.) %>%
             filter(Age == input$ageGroup) %>%
             summarise("Netflix" = sum(Netflix), "Hulu" = sum(Hulu),"Prime Video" = sum(Prime.Video), "Disney+" = sum(Disney.))
-        
     })
+    
     output$ratingSummary <- renderText({
         paste0("There are ", nrow(netflix.data()), " movies on Netflix with IMDb ratings higher than", input$Rating, ",",
                                   nrow(hulu.data()), " movies on Hulu with IMDb ratings higher than", input$Rating, ",",
                                   nrow(prime.data()), " movies on Prime Video with IMDb ratings higher than", input$Rating, ",",
                                   nrow(disney.data()), " movies on Disney+ with IMDb ratings higher than", input$Rating, ".")
-        })
+    })
+    
+    #----------------------------------------------------------------------------
+    
+    #Server for Age Filter
+    #uses totalData to make the components of the bar chart
+    #x-axis is the 4 platforms and y axis are the amount of movies they have
+    #hide the legend
+    #title can alternate depending on the input of age group
+    
     output$plot <- renderPlot({
-        
-        #Server for Age Filter
-        #uses totalData to make the components of the bar chart
-        #x-axis is the 4 platforms and y axis are the amount of movies they have
-        #hide the legend
-        #title can alternate depending on the input of age group
         platformMovieAmount <- totalData() %>%
             pivot_longer("Netflix":"Disney+", names_to = "platform", values_to = "totalMovies")
         
         ggplot(data=platformMovieAmount, aes(x= platform, y= totalMovies, fill=platform)) +
-            geom_bar(stat="identity", show.legend = FALSE)+
+            geom_bar(stat="identity", show.legend = FALSE) +
             labs(title = paste("Platforms that supported age", input$ageGroup,"rated movies")) +
             xlab("Platform") + ylab("Total amount of Movies")
-        
-        
     })
     
     #Summary for Age Plot Introduction & Conclusion

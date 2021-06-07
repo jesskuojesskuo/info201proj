@@ -4,15 +4,19 @@ library(ggplot2)
 library(maps)
 library(rsconnect)
 
-data <- read.csv("Movies.csv")
+#Read file
+data <- read.csv("movies.csv")
 
 ui <- fluidPage(
     
     titlePanel("Online Streaming Platform Comparison"),
     tabsetPanel(
+        
+        #Page introduction with About, Dataset information, and Questions
+        
         tabPanel("Page Introduction", 
                      mainPanel(
-                         br(),
+                         br(), 
                          img(src = "4platforms.jpg"),
                          h3("About the Project"),
                          p("For our project we wanted to explore movie data among the most notable movie streaming platforms today. We wanted to analyze the data for any discernible takeaways and/or relationships between movie streaming platforms on rating, age, and year. Our interpretations will benefit the consumer audience, more precisely people who are interested in purchasing a subscription to said platforms based on their personal preferences or needs. "),
@@ -31,6 +35,12 @@ ui <- fluidPage(
                          img(src = "https://cdn.shopify.com/s/files/1/1003/7610/files/Movie_Banner-01.jpg?v=1475077727")
                      )
         ),
+        
+        #------------------------------------------------------------------------
+        
+        #UI for Year Filter with a radio button widget and summary on the left
+        #The bar plot is located on the right, which reacts to the widget selection
+        
         tabPanel("Year Filter", 
                  sidebarLayout(
                      sidebarPanel(
@@ -40,7 +50,7 @@ ui <- fluidPage(
                              choices = c("All four platforms", "Netflix", "Hulu", "Amazon Prime" = "Prime.Video", "Disney+" = "Disney.")
                          ),
                          h3("Plot Introduction & Summary"),
-                         p("Through this graph, we're able to see the relationship between the streaming platform, the production year, and the amount of movies for the corresponding categories. This graph would be very useful for viewers or directors who are trying to grasp the streaming platform that they want to subscribe or upload their work on depending on how prevalent certain movie years are for each platform. The graph answers this relationship and is useful for users as they can quickly see the graph by selecting and filtering with the widget. Here, we can see that the platforms all together have a lot more movies that are produced after 2000. Specifically, Hulu, Netflix, and Prime all seem to focus on movies produced after 2010 while Disney+ has a wider distribution, with a larger percent of movies from the 1900's.")
+                         p("Through this graph, we're able to see the relationship between the streaming platform, the production year, and the amount of movies for the corresponding categories. This graph would be very useful for viewers or directors who are trying to grasp the streaming platform that they want to subscribe or upload their work on depending on how prevalent certain movie years are for each platform. The graph answers this relationship and is useful for users as they can quickly see the graph by selecting and filtering with the widget. Here, we can see that the platforms all together have a lot more movies that are produced after 2000. Specifically, Hulu, Netflix, and Prime all seem to focus on movies produced after 2010 while Disney+ has a wider distribution, with a larger percent of movies from the 1900's. One important thing to consider and to let the audience know is that the graphs are not drawn to scale. Therefore, it is important to keep in mind the value on the y-axis rather than compare their shapes.")
                      ),
                     mainPanel(
                         plotOutput("Plot"),
@@ -49,7 +59,12 @@ ui <- fluidPage(
                 )
         ),
         
-        #rating filter
+        #------------------------------------------------------------------------
+        
+        #UI for the rating filter tab with slider and summary on the left
+        #4 bar plots are located on the right respectively for each platform
+        #these bar plots all react to selection by the slider
+            
         tabPanel("Ratings Filter", 
                  sidebarLayout(
                      sidebarPanel(
@@ -75,7 +90,12 @@ ui <- fluidPage(
                      )
                  )
         ),
-        #age filter
+        
+        #------------------------------------------------------------------------
+            
+        #UI for the age filter tab where a select input and reactive summary are on the left
+        #The bar plot is located on the right which is reactive to the widget
+            
         tabPanel("Age Filter", 
                  sidebarLayout(
                      #selection of age group, plots bar chart of the 4 platforms depending on the age input
@@ -91,6 +111,11 @@ ui <- fluidPage(
                      )
                  )
             ),
+        
+        #------------------------------------------------------------------------
+        
+        #Page Conclusion with Analysis, Reflection, and Group Team
+            
         tabPanel("Page Conclusion", 
                      mainPanel(
                          br(),
