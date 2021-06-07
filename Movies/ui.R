@@ -1,7 +1,6 @@
 library(shiny)
 library(tidyverse)
 library(ggplot2)
-library(maps)
 library(rsconnect)
 
 #Read file
@@ -70,7 +69,7 @@ ui <- fluidPage(
                      sidebarPanel(
                          #user inputs desired minimum IMDb rating, bar charts show count for movies with at least that rating
                         sliderInput("Rating",
-                                     "IMDb ratings for movies", 
+                                     "Select the IMDb ratings for movies that you want to filter:", 
                                      min = 0, 
                                      max = 10,
                                      value = 5),
@@ -100,8 +99,8 @@ ui <- fluidPage(
                  sidebarLayout(
                      #selection of age group, plots bar chart of the 4 platforms depending on the age input
                      sidebarPanel(
-                         selectInput("ageGroup", label = "Age Group:", 
-                                     choices = c("7+", "13+", "16+", "18+", "all")
+                         selectInput("ageGroup", label = "Select the Age Group that you want to filter:", 
+                                     choices = c("all", "7+", "13+", "16+", "18+")
                          ),
                          h3("Plot Introduction & Conclusion"),
                          textOutput("summary")
