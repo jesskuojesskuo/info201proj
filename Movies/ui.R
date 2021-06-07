@@ -17,7 +17,7 @@ ui <- fluidPage(
         tabPanel("Page Introduction", 
                      mainPanel(
                          br(), 
-                         img(src = "4platforms.jpg"),
+                         img(src = "4Platforms.jpg"),
                          h3("About the Project"),
                          p("For our project we wanted to explore movie data among the most notable movie streaming platforms today. We wanted to analyze the data for any discernible takeaways and/or relationships between movie streaming platforms on rating, age, and year. Our interpretations will benefit the consumer audience, more precisely people who are interested in purchasing a subscription to said platforms based on their personal preferences or needs. "),
                          br(),
@@ -119,7 +119,7 @@ ui <- fluidPage(
         tabPanel("Page Conclusion", 
                      mainPanel(
                          br(),
-                         img(src = "4platforms.jpg"),
+                         img(src = "4Platforms.jpg"),
                          h3("Conclusion/Analysis"),
                          tags$ul(
                              tags$li("Referring to the years chart, we can see movie production levels grew sizable amounts in 2000 - 2010 and beyond for all platforms. Disney+ also had many older movies compared to Hulu and Netflix which really only began streaming more movies mainly after 2010."), 
